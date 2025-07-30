@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graceful-app-pid1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graceful-app
+  template:
+    metadata:
+      labels:
+        app: graceful-app
+    spec:
+      containers:
+      - name: graceful-app
+        image: techiescamp/sigterm-test:pid1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        terminationMessagePath: "/dev/termination-log"
+      terminationGracePeriodSeconds: 30
+
